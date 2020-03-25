@@ -76,22 +76,11 @@ c-----smoothing is needed if a new tidefile is read
 
       smoothing_needed=(new_tidefile .and.
      &     tidefile_ndx-first_used_tidefile .gt. 0)
-     
-      if (new_tidefile) then
-	   !@fixme is this the right condition? was same as smoothing_needed
+
          do i=1,nreser          
-            !resvol(i)=(eresv(i)-hres(i))*ares(i)
-            !Reservoir volume not stored in HDF file, need to calculate
             reser_elv = eresv(i)
             call calculateReservoirGeometry(i, reser_elv, reser_area, reser_vol)
             resvol(i) = reser_vol
-            ares(i) = reser_area
-         enddo
-      endif
-c--------update reservoir area, this area will be used to calulate depth.
-         do i=1,nreser          
-            reser_elv = eresv(i)
-            call calculateReservoirGeometry(i, reser_elv, reser_area, reser_vol)
             ares(i) = reser_area
          enddo
 
